@@ -27,8 +27,7 @@ public class LineChartDataSetImageRendererEffect: LineChartDataSetRendererEffect
     {
         CGContextSaveGState(context)
         
-        // TODO: update name of pointMapped method
-        let originPoint = pointMapped(CGPoint(x: Double(imageCenterDataEntry.xIndex), y: imageCenterDataEntry.value))
+        let originPoint = transformValueToPixel(CGPoint(x: Double(imageCenterDataEntry.xIndex), y: imageCenterDataEntry.value))
         var drawRect = CGRect(origin: originPoint, size: imageSize)
         drawRect.offsetInPlace(dx: -drawRect.width / 2.0, dy: -drawRect.height / 2.0)
         

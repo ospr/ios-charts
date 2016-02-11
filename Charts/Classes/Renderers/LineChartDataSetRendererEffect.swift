@@ -22,9 +22,9 @@ public class LineChartDataSetRendererEffect: ChartRendererEffect
         self.parentDataSet = parentDataSet
     }
     
-    internal func pointMapped(point: CGPoint) -> CGPoint
+    internal func transformValueToPixel(valuePoint: CGPoint) -> CGPoint
     {
         let valueToPixelTransformer = parentRenderer.dataProvider!.getTransformer(parentDataSet.axisDependency)
-        return CGPointApplyAffineTransform(point, valueToPixelTransformer.valueToPixelMatrix)
+        return CGPointApplyAffineTransform(valuePoint, valueToPixelTransformer.valueToPixelMatrix)
     }
 }
