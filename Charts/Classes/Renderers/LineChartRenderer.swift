@@ -41,7 +41,21 @@ public class LineChartRenderer: LineRadarChartRenderer
                     fatalError("Datasets for LineChartRenderer must conform to ILineChartDataSet")
                 }
                 
+                for effectRenderer in set.rendererEffects
+                {
+                    if let effectRenderer = effectRenderer as? LineChartDataSetRendererEffect
+                    {
+                        effectRenderer.updateForRendering(parentRenderer: self, parentDataSet: set)
+                    }
+                    effectRenderer.willDrawData(context)
+                }
+                
                 drawDataSet(context: context, dataSet: set as! ILineChartDataSet)
+                
+                for effectRenderer in set.rendererEffects.reverse()
+                {
+                    effectRenderer.didDrawData(context)
+                }
             }
         }
     }
