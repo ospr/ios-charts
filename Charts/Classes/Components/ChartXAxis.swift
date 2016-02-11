@@ -53,6 +53,9 @@ public class ChartXAxis: ChartAxisBase
     /// the modulus that indicates if a value at a specified index in an array(list) for the x-axis-labels is drawn or not. Draw when `(index % modulus) == 0`.
     public var axisLabelModulus = Int(1)
     
+    /// indicates how many x-axis labels should be skipped before drawing the first x-axis label
+    public var axisLabelStartOffset = Int(0)
+    
     /// Is axisLabelModulus a custom value or auto calculated? If false, then it's auto, if true, then custom.
     /// 
     /// **default**: false (automatic modulus)
