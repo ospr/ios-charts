@@ -19,6 +19,8 @@ public class ChartData: NSObject
 {
     internal var _yMax = Double(0.0)
     internal var _yMin = Double(0.0)
+    internal var _xMax = 0
+    internal var _xMin = 0
     internal var _leftAxisMax = Double(0.0)
     internal var _leftAxisMin = Double(0.0)
     internal var _rightAxisMax = Double(0.0)
@@ -151,6 +153,8 @@ public class ChartData: NSObject
         {
             _yMax = 0.0
             _yMin = 0.0
+            _xMax = 0
+            _xMin = 0
         }
         else
         {
@@ -159,6 +163,8 @@ public class ChartData: NSObject
             
             _yMin = DBL_MAX
             _yMax = -DBL_MAX
+            _xMin = Int.max
+            _xMax = Int.min
             
             for (var i = 0; i < _dataSets.count; i++)
             {
@@ -173,12 +179,24 @@ public class ChartData: NSObject
                 {
                     _yMax = _dataSets[i].yMax
                 }
+                
+                if (_dataSets[i].xIndexMinEntry.xIndex < _xMin)
+                {
+                    _xMin = _dataSets[i].xIndexMinEntry.xIndex
+                }
+                
+                if (_dataSets[i].xIndexMaxEntry.xIndex > _xMax)
+                {
+                    _xMax = _dataSets[i].xIndexMaxEntry.xIndex
+                }
             }
             
             if (_yMin == DBL_MAX)
             {
                 _yMin = 0.0
                 _yMax = 0.0
+                _xMax = 0
+                _xMin = 0
             }
             
             // left axis
@@ -310,6 +328,18 @@ public class ChartData: NSObject
         {
             return _rightAxisMax
         }
+    }
+    
+    /// - returns: the smallest x-value the data object contains.
+    public var xMin: Int
+    {
+        return _xMin
+    }
+    
+    /// - returns: the largest x-value the data object contains.
+    public var xMax: Int
+    {
+        return _xMax
     }
     
     /// - returns: the average length (in characters) across all values in the x-vals array
