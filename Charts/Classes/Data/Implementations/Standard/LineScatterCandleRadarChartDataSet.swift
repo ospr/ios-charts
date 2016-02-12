@@ -23,21 +23,34 @@ public class LineScatterCandleRadarChartDataSet: BarLineScatterCandleBubbleChart
     /// Enables / disables the horizontal highlight-indicator. If disabled, the indicator is not drawn.
     public var drawHorizontalHighlightIndicatorEnabled = true
     
-    /// Enables / disables the vertical highlight-indicator. If disabled, the indicator is not drawn.
-    public var drawVerticalHighlightIndicatorEnabled = true
+    /// Enables / disables the lower vertical highlight-indicator. If disabled, the indicator is not drawn.
+    public var drawLowerVerticalHighlightIndicatorEnabled = true
+
+    /// Enables / disables the upper vertical highlight-indicator. If disabled, the indicator is not drawn.
+    public var drawUpperVerticalHighlightIndicatorEnabled = true
     
     /// - returns: true if horizontal highlight indicator lines are enabled (drawn)
     public var isHorizontalHighlightIndicatorEnabled: Bool { return drawHorizontalHighlightIndicatorEnabled }
     
-    /// - returns: true if vertical highlight indicator lines are enabled (drawn)
-    public var isVerticalHighlightIndicatorEnabled: Bool { return drawVerticalHighlightIndicatorEnabled }
+    /// - returns: true if lower vertical highlight indicator lines are enabled (drawn)
+    public var isLowerVerticalHighlightIndicatorEnabled: Bool { return drawLowerVerticalHighlightIndicatorEnabled }
+
+    /// - returns: true if upper vertical highlight indicator lines are enabled (drawn)
+    public var isUpperVerticalHighlightIndicatorEnabled: Bool { return drawUpperVerticalHighlightIndicatorEnabled }
     
     /// Enables / disables both vertical and horizontal highlight-indicators.
     /// :param: enabled
     public func setDrawHighlightIndicators(enabled: Bool)
     {
         drawHorizontalHighlightIndicatorEnabled = enabled
-        drawVerticalHighlightIndicatorEnabled = enabled
+        setDrawVerticalHighlightIndicators(enabled: enabled)
+    }
+    
+    /// Enables / disables the lower and upper vertical highlight-indicator. If disabled, the indicator is not drawn.
+    public func setDrawVerticalHighlightIndicators(enabled enabled: Bool)
+    {
+        drawLowerVerticalHighlightIndicatorEnabled = enabled
+        drawUpperVerticalHighlightIndicatorEnabled = enabled
     }
     
     // MARK: NSCopying
@@ -46,7 +59,8 @@ public class LineScatterCandleRadarChartDataSet: BarLineScatterCandleBubbleChart
     {
         let copy = super.copyWithZone(zone) as! LineScatterCandleRadarChartDataSet
         copy.drawHorizontalHighlightIndicatorEnabled = drawHorizontalHighlightIndicatorEnabled
-        copy.drawVerticalHighlightIndicatorEnabled = drawVerticalHighlightIndicatorEnabled
+        copy.drawLowerVerticalHighlightIndicatorEnabled = drawLowerVerticalHighlightIndicatorEnabled
+        copy.drawUpperVerticalHighlightIndicatorEnabled = drawUpperVerticalHighlightIndicatorEnabled
         return copy
     }
     

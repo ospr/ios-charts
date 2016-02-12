@@ -30,11 +30,15 @@ public class LineScatterCandleRadarChartRenderer: ChartDataRendererBase
     public func drawHighlightLines(context context: CGContext, point: CGPoint, set: ILineScatterCandleRadarChartDataSet)
     {
         // draw vertical highlight lines
-        if set.isVerticalHighlightIndicatorEnabled
+        if set.isLowerVerticalHighlightIndicatorEnabled ||
+           set.isUpperVerticalHighlightIndicatorEnabled
         {
+            let lowerPoint = set.isLowerVerticalHighlightIndicatorEnabled ? viewPortHandler.contentBottom : point.y
+            let upperPoint = set.isUpperVerticalHighlightIndicatorEnabled ? viewPortHandler.contentTop : point.y
+            
             CGContextBeginPath(context)
-            CGContextMoveToPoint(context, point.x, viewPortHandler.contentTop)
-            CGContextAddLineToPoint(context, point.x, viewPortHandler.contentBottom)
+            CGContextMoveToPoint(context, point.x, upperPoint)
+            CGContextAddLineToPoint(context, point.x, lowerPoint)
             CGContextStrokePath(context)
         }
         

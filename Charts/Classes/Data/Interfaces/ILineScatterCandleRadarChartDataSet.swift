@@ -24,15 +24,25 @@ public protocol ILineScatterCandleRadarChartDataSet: IBarLineScatterCandleBubble
     var drawHorizontalHighlightIndicatorEnabled: Bool { get set }
     
     /// Enables / disables the vertical highlight-indicator. If disabled, the indicator is not drawn.
-    var drawVerticalHighlightIndicatorEnabled: Bool { get set }
+    var drawLowerVerticalHighlightIndicatorEnabled: Bool { get set }
+
+    /// Enables / disables the vertical highlight-indicator. If disabled, the indicator is not drawn.
+    var drawUpperVerticalHighlightIndicatorEnabled: Bool { get set }
     
     /// - returns: true if horizontal highlight indicator lines are enabled (drawn)
     var isHorizontalHighlightIndicatorEnabled: Bool { get }
     
-    /// - returns: true if vertical highlight indicator lines are enabled (drawn)
-    var isVerticalHighlightIndicatorEnabled: Bool { get }
+    /// - returns: true if lower vertical highlight indicator lines are enabled (drawn)
+    var isLowerVerticalHighlightIndicatorEnabled: Bool { get }
+
+    /// - returns: true if upper vertical highlight indicator lines are enabled (drawn)
+    var isUpperVerticalHighlightIndicatorEnabled: Bool { get }
     
     /// Enables / disables both vertical and horizontal highlight-indicators.
     /// :param: enabled
     func setDrawHighlightIndicators(enabled: Bool)
+    
+    /// Enables / disables both upper/lower vertical highlight-indicators.
+    /// :param: enabled
+    func setDrawVerticalHighlightIndicators(enabled enabled: Bool)
 }
