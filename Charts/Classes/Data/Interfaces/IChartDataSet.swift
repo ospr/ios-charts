@@ -34,6 +34,12 @@ public protocol IChartDataSet
     /// - returns: the maximum y-value this DataSet holds
     var yMax: Double { get }
     
+    /// - returns: the maximum x-value this DataSet holds
+    var xIndexMaxEntry: ChartDataEntry { get }
+    
+    /// - returns: the minimum x-value this DataSet holds
+    var xIndexMinEntry: ChartDataEntry { get }
+    
     /// - returns: the number of y-values this DataSet represents
     var entryCount: Int { get }
     
