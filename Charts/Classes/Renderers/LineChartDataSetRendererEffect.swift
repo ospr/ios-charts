@@ -13,8 +13,8 @@ import Foundation
 
 public class LineChartDataSetRendererEffect: ChartRendererEffect
 {
-    private var parentRenderer: LineChartRenderer!
-    private var parentDataSet: IChartDataSet!
+    public var parentRenderer: LineChartRenderer!
+    public var parentDataSet: IChartDataSet!
     
     internal func updateForRendering(parentRenderer parentRenderer: LineChartRenderer, parentDataSet: IChartDataSet)
     {
@@ -22,7 +22,7 @@ public class LineChartDataSetRendererEffect: ChartRendererEffect
         self.parentDataSet = parentDataSet
     }
     
-    internal func transformValueToPixel(valuePoint: CGPoint) -> CGPoint
+    public func transformValueToPixel(valuePoint: CGPoint) -> CGPoint
     {
         let valueToPixelTransformer = parentRenderer.dataProvider!.getTransformer(parentDataSet.axisDependency)
         return CGPointApplyAffineTransform(valuePoint, valueToPixelTransformer.valueToPixelMatrix)
