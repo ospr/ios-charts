@@ -295,7 +295,19 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
             _offsetsCalculated = true
         }
         
+        willDrawChart(context)
         drawChart(context)
+        didDrawChart(context)
+    }
+    
+    public func willDrawChart(context: CGContext)
+    {
+        
+    }
+
+    public func didDrawChart(context: CGContext)
+    {
+        
     }
     
     public func drawChart(context: CGContext)
