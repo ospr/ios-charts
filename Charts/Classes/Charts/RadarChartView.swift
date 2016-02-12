@@ -160,9 +160,9 @@ public class RadarChartView: PieRadarChartViewBase
         setNeedsDisplay()
     }
     
-    public override func drawRect(rect: CGRect)
+    public override func drawChart(context: CGContext)
     {
-        super.drawRect(rect)
+        super.drawChart(context)
 
         if _data === nil
         {

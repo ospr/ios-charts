@@ -46,9 +46,9 @@ public class PieChartView: PieRadarChartViewBase
         renderer = PieChartRenderer(chart: self, animator: _animator, viewPortHandler: _viewPortHandler)
     }
     
-    public override func drawRect(rect: CGRect)
+    public override func drawChart(context: CGContext)
     {
-        super.drawRect(rect)
+        super.drawChart(context)
         
         if _data === nil
         {

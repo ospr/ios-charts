@@ -287,14 +287,23 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     
     public override func drawRect(rect: CGRect)
     {
-        let optionalContext = UIGraphicsGetCurrentContext()
-        guard let context = optionalContext else { return }
+        guard let context = UIGraphicsGetCurrentContext() else { return }
         
+        if (!_offsetsCalculated)
+        {
+            calculateOffsets()
+            _offsetsCalculated = true
+        }
+        
+        drawChart(context)
+    }
+    
+    public func drawChart(context: CGContext)
+    {
         let frame = self.bounds
 
         if _data === nil
         {
-            
             CGContextSaveGState(context)
             
             let hasText = noDataText.characters.count > 0
@@ -327,12 +336,6 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
             }
             
             return
-        }
-        
-        if (!_offsetsCalculated)
-        {
-            calculateOffsets()
-            _offsetsCalculated = true
         }
     }
     
