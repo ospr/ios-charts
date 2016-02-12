@@ -326,34 +326,38 @@ public class LineChartRenderer: LineRadarChartRenderer
         else
         { // only one color per dataset
             
-            var e1: ChartDataEntry!
-            var e2: ChartDataEntry!
+            let phaseMaxX = Int(CGFloat(maxx - minx) * phaseX) + minx // TODO: ceil??
             
-            if (_lineSegments.count != max((entryCount - 1) * 2, 2))
+            var phaseEntries = [ChartDataEntry]()
+            for x in minx..<phaseMaxX
             {
-                _lineSegments = [CGPoint](count: max((entryCount - 1) * 2, 2), repeatedValue: CGPoint())
+                guard let entry = dataSet.entryForIndex(x) else { continue }
+                phaseEntries.append(entry)
             }
             
-            e1 = dataSet.entryForIndex(minx)
-            
-            if e1 != nil
+            if phaseEntries.count >= 2
             {
-                let count = Int(ceil(CGFloat(maxx - minx) * phaseX + CGFloat(minx)))
+                CGContextBeginPath(context)
                 
-                for (var x = count > 1 ? minx + 1 : minx, j = 0; x < count; x++)
-                {
-                    e1 = dataSet.entryForIndex(x == 0 ? 0 : (x - 1))
-                    e2 = dataSet.entryForIndex(x)
-                    
-                    if e1 == nil || e2 == nil { continue }
-                    
-                    _lineSegments[j++] = CGPointApplyAffineTransform(CGPoint(x: CGFloat(e1.xIndex), y: CGFloat(e1.value) * phaseY), valueToPixelMatrix)
-                    _lineSegments[j++] = CGPointApplyAffineTransform(CGPoint(x: CGFloat(e2.xIndex), y: CGFloat(e2.value) * phaseY), valueToPixelMatrix)
+                let transformEntryToPoint = { (entry: ChartDataEntry) -> CGPoint in
+                    // todo: this should probably be used everywhere
+                    return CGPointApplyAffineTransform(CGPoint(x: CGFloat(entry.xIndex), y: CGFloat(entry.value) * phaseY), valueToPixelMatrix)
                 }
                 
-                let size = max((count - minx - 1) * 2, 2)
+                let firstPoint = transformEntryToPoint(phaseEntries[0])
+                CGContextMoveToPoint(context, firstPoint.x, firstPoint.y)
+                
+                for entry in phaseEntries.suffixFrom(1)
+                {
+                    let transformedEntryPoint = transformEntryToPoint(entry)
+                    CGContextAddLineToPoint(context, transformedEntryPoint.x, transformedEntryPoint.y)
+                }
+                
+                // TODO: these will need to be cusomizable (especially line cap since that's not standard)
+                CGContextSetLineJoin(context, .Miter)
+                CGContextSetLineCap(context, .Round)
                 CGContextSetStrokeColorWithColor(context, dataSet.colorAt(0).CGColor)
-                CGContextStrokeLineSegments(context, _lineSegments, size)
+                CGContextStrokePath(context)
             }
         }
         
