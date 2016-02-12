@@ -326,7 +326,7 @@ public class LineChartRenderer: LineRadarChartRenderer
         else
         { // only one color per dataset
             
-            let phaseMaxX = Int(CGFloat(maxx - minx) * phaseX) + minx // TODO: ceil??
+            let phaseMaxX = Int(CGFloat(maxx - minx) * phaseX) + minx
             
             var phaseEntries = [ChartDataEntry]()
             for x in minx..<phaseMaxX
@@ -340,7 +340,6 @@ public class LineChartRenderer: LineRadarChartRenderer
                 CGContextBeginPath(context)
                 
                 let transformEntryToPoint = { (entry: ChartDataEntry) -> CGPoint in
-                    // todo: this should probably be used everywhere
                     return CGPointApplyAffineTransform(CGPoint(x: CGFloat(entry.xIndex), y: CGFloat(entry.value) * phaseY), valueToPixelMatrix)
                 }
                 
@@ -353,7 +352,6 @@ public class LineChartRenderer: LineRadarChartRenderer
                     CGContextAddLineToPoint(context, transformedEntryPoint.x, transformedEntryPoint.y)
                 }
                 
-                // TODO: these will need to be cusomizable (especially line cap since that's not standard)
                 CGContextSetLineJoin(context, .Miter)
                 CGContextSetLineCap(context, .Round)
                 CGContextSetStrokeColorWithColor(context, dataSet.colorAt(0).CGColor)
