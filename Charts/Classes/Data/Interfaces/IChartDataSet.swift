@@ -129,7 +129,7 @@ public protocol IChartDataSet
     // MARK: - Styling functions and accessors
     
     // Array of effects to be applied to the renderer when the data set is drawn
-    var rendererEffects: [ChartRendererEffect] { get set }
+    var rendererEffects: [ChartRendererEffectBase] { get set }
     
     /// The label string that describes the DataSet.
     var label: String? { get }

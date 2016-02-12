@@ -133,6 +133,8 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     /// An extra offset to be appended to the viewport's left
     public var extraLeftOffset: CGFloat = 0.0
     
+    public var rendererEffects = [ChartRendererEffect]()
+    
     public func setExtraOffsets(left left: CGFloat, top: CGFloat, right: CGFloat, bottom: CGFloat)
     {
         extraLeftOffset = left
@@ -302,12 +304,19 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     
     public func willDrawChart(context: CGContext)
     {
-        
+        for rendererEffect in rendererEffects
+        {
+            rendererEffect.updateForRendering(parentChart: self)
+            rendererEffect.willDrawData(context)
+        }
     }
 
     public func didDrawChart(context: CGContext)
     {
-        
+        for rendererEffect in rendererEffects
+        {
+            rendererEffect.didDrawData(context)
+        }
     }
     
     public func drawChart(context: CGContext)

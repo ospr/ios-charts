@@ -1,5 +1,5 @@
 //
-//  ChartRendererEffect.swift
+//  LineChartDataSetRendererEffect.swift
 //  Charts
 //
 //  Copyright 2015 Daniel Cohen Gindi & Philipp Jahoda
@@ -11,7 +11,7 @@
 
 import Foundation
 
-public class LineChartDataSetRendererEffect: ChartRendererEffect
+public class LineChartDataSetRendererEffect: ChartRendererEffectBase
 {
     public var parentRenderer: LineChartRenderer!
     public var parentDataSet: IChartDataSet!

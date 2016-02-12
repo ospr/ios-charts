@@ -155,7 +155,7 @@ public class ChartBaseDataSet: NSObject, IChartDataSet
     // MARK: - Styling functions and accessors
     
     // Array of effects to be applied to the renderer when the data set is drawn
-    public var rendererEffects = [ChartRendererEffect]()
+    public var rendererEffects = [ChartRendererEffectBase]()
     
     /// All the colors that are used for this DataSet.
     /// Colors are reused as soon as the number of Entries the DataSet represents is higher than the size of the colors array.

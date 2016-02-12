@@ -11,12 +11,15 @@
 
 import Foundation
 
-public class ChartRendererEffect: ChartRendererEffectBase
+public class ChartRendererEffectBase: NSObject
 {
-    public var parentChart: ChartViewBase!
-    
-    internal func updateForRendering(parentChart parentChart: ChartViewBase)
+    public func willDrawData(context: CGContext)
     {
-        self.parentChart = parentChart
+        
+    }
+    
+    public func didDrawData(context: CGContext)
+    {
+        
     }
 }
