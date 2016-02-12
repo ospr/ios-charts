@@ -31,10 +31,15 @@ public class ChartHighlighter : NSObject
     /// - returns:
     public func getHighlight(x x: Double, y: Double) -> ChartHighlight?
     {
-        let xIndex = getXIndex(x)
+        var xIndex = getXIndex(x)
         if (xIndex == -Int.max)
         {
             return nil
+        }
+        
+        if let data = chart?.data
+        {
+            xIndex = min(max(xIndex, data.xMin), data.xMax)
         }
         
         let dataSetIndex = getDataSetIndex(xIndex: xIndex, x: x, y: y)
