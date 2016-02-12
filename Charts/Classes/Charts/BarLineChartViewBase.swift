@@ -1428,7 +1428,7 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
     }
     
     /// - returns: the Entry object displayed at the touched position of the chart
-    public func getEntryByTouchPoint(pt: CGPoint) -> ChartDataEntry!
+    public func getEntryByTouchPoint(pt: CGPoint) -> ChartDataEntry?
     {
         let h = getHighlightByTouchPoint(pt)
         if (h !== nil)
@@ -1439,7 +1439,7 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
     }
     
     /// - returns: the DataSet object displayed at the touched position of the chart
-    public func getDataSetByTouchPoint(pt: CGPoint) -> IBarLineScatterCandleBubbleChartDataSet!
+    public func getDataSetByTouchPoint(pt: CGPoint) -> IBarLineScatterCandleBubbleChartDataSet?
     {
         let h = getHighlightByTouchPoint(pt)
         if (h !== nil)
