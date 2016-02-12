@@ -170,7 +170,20 @@ public class ChartViewPortHandler: NSObject
     { 
         return _chartWidth
     }
+    
+    /// Changes the clipping rect of the content when drawing. Modify to allow drawing of items outside the current content rect.
+    public var contentTopClipOffset = CGFloat(0)
+    public var contentBottomClipOffset = CGFloat(0)
 
+    /// Returns the clip rect for the content when drawing
+    public var contentClipRect: CGRect
+    {
+        var clipRect = contentRect
+        clipRect.origin.y += contentTopClipOffset
+        clipRect.size.height -= contentTopClipOffset + contentBottomClipOffset
+        return clipRect
+    }
+    
     // MARK: - Scaling/Panning etc.
     
     /// Zooms around the specified center

@@ -190,7 +190,7 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
         // make sure the graph values and grid cannot be drawn outside the content-rect
         CGContextSaveGState(context)
 
-        CGContextClipToRect(context, _viewPortHandler.contentRect)
+        CGContextClipToRect(context, _viewPortHandler.contentClipRect)
         
         if (_xAxis.isDrawLimitLinesBehindDataEnabled)
         {
