@@ -1,5 +1,5 @@
 //
-//  LineChartDataSetShadowRendererEffect.swift
+//  ShadowLineChartDataSetRendererEffect.swift
 //  Charts
 //
 //  Copyright 2015 Daniel Cohen Gindi & Philipp Jahoda
@@ -11,7 +11,7 @@
 
 import Foundation
 
-public class LineChartDataSetShadowRendererEffect: LineChartDataSetRendererEffect
+public class ShadowLineChartDataSetRendererEffect: LineChartDataSetRendererEffect
 {
     var shadowColor: UIColor
     var shadowBlur: CGFloat
@@ -21,7 +21,8 @@ public class LineChartDataSetShadowRendererEffect: LineChartDataSetRendererEffec
     {
         self.shadowColor = shadowColor
         self.shadowBlur = shadowBlur
-        self.shadowOffset = shadowOffset
+        self.shadowOffset
+            = shadowOffset
         
         super.init()
     }

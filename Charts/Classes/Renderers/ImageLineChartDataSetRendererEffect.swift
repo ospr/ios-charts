@@ -1,5 +1,5 @@
 //
-//  LineChartDataSetImageRendererEffect.swift
+//  ImageLineChartDataSetRendererEffect.swift
 //  Charts
 //
 //  Copyright 2015 Daniel Cohen Gindi & Philipp Jahoda
@@ -11,7 +11,7 @@
 
 import Foundation
 
-public class LineChartDataSetImageRendererEffect: LineChartDataSetRendererEffect
+public class ImageLineChartDataSetRendererEffect: LineChartDataSetRendererEffect
 {
     public var image: UIImage
     public var imageCenterDataEntry: ChartDataEntry
