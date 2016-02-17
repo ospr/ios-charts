@@ -76,11 +76,12 @@ public class RadarChartView: PieRadarChartViewBase
     internal override func calcMinMax()
     {
         super.calcMinMax()
+        guard let data = _data else { return }
         
-        let minLeft = _data.getYMin(.Left)
-        let maxLeft = _data.getYMax(.Left)
+        let minLeft = data.getYMin(.Left)
+        let maxLeft = data.getYMax(.Left)
         
-        _chartXMax = Double(_data.xVals.count) - 1.0
+        _chartXMax = Double(data.xVals.count) - 1.0
         _deltaX = CGFloat(abs(_chartXMax - _chartXMin))
         
         let leftRange = CGFloat(abs(maxLeft - (_yAxis.isStartAtZeroEnabled ? 0.0 : minLeft)))
@@ -118,7 +119,7 @@ public class RadarChartView: PieRadarChartViewBase
             _yAxis.axisMaximum = !isnan(_yAxis.customAxisMax) ? _yAxis.customAxisMax : (maxLeft + topSpaceLeft)
         }
         
-        _chartXMax = Double(_data.xVals.count) - 1.0
+        _chartXMax = Double(data.xVals.count) - 1.0
         _deltaX = CGFloat(abs(_chartXMax - _chartXMin))
         
         _yAxis.axisRange = abs(_yAxis.axisMaximum - _yAxis.axisMinimum)
@@ -138,21 +139,18 @@ public class RadarChartView: PieRadarChartViewBase
     
     public override func notifyDataSetChanged()
     {
-        if _data === nil
-        {
-            return
-        }
+        guard let data = _data else { return }
         
         calcMinMax()
         
         _yAxis?._defaultValueFormatter = _defaultValueFormatter
         
         _yAxisRenderer?.computeAxis(yMin: _yAxis.axisMinimum, yMax: _yAxis.axisMaximum)
-        _xAxisRenderer?.computeAxis(xValAverageLength: _data.xValAverageLength, xValues: _data.xVals)
+        _xAxisRenderer?.computeAxis(xValAverageLength: data.xValAverageLength, xValues: data.xVals)
         
         if (_legend !== nil && !_legend.isLegendCustom)
         {
-            _legendRenderer?.computeLegend(_data)
+            _legendRenderer?.computeLegend(data)
         }
         
         calculateOffsets()
@@ -210,7 +208,7 @@ public class RadarChartView: PieRadarChartViewBase
     /// - returns: the angle that each slice in the radar chart occupies.
     public var sliceAngle: CGFloat
     {
-        return 360.0 / CGFloat(_data.xValCount)
+        return 360.0 / CGFloat(_data?.xValCount ?? 0)
     }
 
     public override func indexForAngle(angle: CGFloat) -> Int
@@ -220,7 +218,7 @@ public class RadarChartView: PieRadarChartViewBase
         
         let sliceAngle = self.sliceAngle
         
-        for (var i = 0; i < _data.xValCount; i++)
+        for (var i = 0; i < (_data?.xValCount ?? 0); i++)
         {
             if (sliceAngle * CGFloat(i + 1) - sliceAngle / 2.0 > a)
             {

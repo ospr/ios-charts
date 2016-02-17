@@ -69,21 +69,18 @@ public class PieRadarChartViewBase: ChartViewBase
     
     internal override func calcMinMax()
     {
-        _deltaX = CGFloat(_data.xVals.count - 1)
+        _deltaX = CGFloat((_data?.xVals.count ?? 0) - 1)
     }
     
     public override func notifyDataSetChanged()
     {
-        if _data === nil
-        {
-            return
-        }
+        guard let data = _data else { return }
         
         calcMinMax()
         
         if (_legend !== nil)
         {
-            _legendRenderer.computeLegend(_data)
+            _legendRenderer.computeLegend(data)
         }
         
         calculateOffsets()
@@ -378,9 +375,11 @@ public class PieRadarChartViewBase: ChartViewBase
     {
         var vals = [ChartSelectionDetail]()
         
-        for (var i = 0; i < _data.dataSetCount; i++)
+        guard let data = _data else { return vals }
+        
+        for (var i = 0; i < data.dataSetCount; i++)
         {
-            guard let dataSet = _data.getDataSetByIndex(i) else { continue }
+            guard let dataSet = data.getDataSetByIndex(i) else { continue }
             
             if !dataSet.isHighlightEnabled
             {
