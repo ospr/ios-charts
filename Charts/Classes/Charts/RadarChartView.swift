@@ -80,10 +80,10 @@ public class RadarChartView: PieRadarChartViewBase
         
         let minLeft = !isnan(_yAxis.customAxisMin)
             ? _yAxis.customAxisMin
-            : _data.getYMin(.Left)
+            : data.getYMin(.Left)
         let maxLeft = !isnan(_yAxis.customAxisMax)
             ? _yAxis.customAxisMax
-            : _data.getYMax(.Left)
+            : data.getYMax(.Left)
         
         _chartXMax = Double(data.xVals.count) - 1.0
         _deltaX = CGFloat(abs(_chartXMax - _chartXMin))

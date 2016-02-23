@@ -300,16 +300,16 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
         
         var minLeft = !isnan(_leftAxis.customAxisMin)
             ? _leftAxis.customAxisMin
-            : _data.getYMin(.Left)
+            : _data?.getYMin(.Left) ?? 0
         var maxLeft = !isnan(_leftAxis.customAxisMax)
             ? _leftAxis.customAxisMax
-            : _data.getYMax(.Left)
+            : _data?.getYMax(.Left) ?? 0
         var minRight = !isnan(_rightAxis.customAxisMin)
             ? _rightAxis.customAxisMin
-            : _data.getYMin(.Right)
+            : _data?.getYMin(.Right) ?? 0
         var maxRight = !isnan(_rightAxis.customAxisMax)
             ? _rightAxis.customAxisMax
-            : _data.getYMax(.Right)
+            : _data?.getYMax(.Right) ?? 0
         
         let leftRange = abs(maxLeft - minLeft)
         let rightRange = abs(maxRight - minRight)
