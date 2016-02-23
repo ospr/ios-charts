@@ -35,7 +35,6 @@
     self.options = @[
                      @{@"key": @"toggleValues", @"label": @"Toggle Values"},
                      @{@"key": @"toggleHighlight", @"label": @"Toggle Highlight"},
-                     @{@"key": @"toggleStartZero", @"label": @"Toggle StartZero"},
                      @{@"key": @"animateX", @"label": @"Animate X"},
                      @{@"key": @"animateY", @"label": @"Animate Y"},
                      @{@"key": @"animateXY", @"label": @"Animate XY"},
@@ -63,7 +62,6 @@
     leftAxis.labelCount = 7;
     leftAxis.drawGridLinesEnabled = NO;
     leftAxis.drawAxisLineEnabled = NO;
-    leftAxis.startAtZeroEnabled = NO;
     
     ChartYAxis *rightAxis = _chartView.rightAxis;
     rightAxis.enabled = NO;
@@ -111,9 +109,10 @@
     set1.shadowColor = UIColor.darkGrayColor;
     set1.shadowWidth = 0.7;
     set1.decreasingColor = UIColor.redColor;
-    set1.decreasingFilled = NO;
+    set1.decreasingFilled = YES;
     set1.increasingColor = [UIColor colorWithRed:122/255.f green:242/255.f blue:84/255.f alpha:1.f];
-    set1.increasingFilled = YES;
+    set1.increasingFilled = NO;
+    set1.neutralColor = UIColor.blueColor;
     
     CandleChartData *data = [[CandleChartData alloc] initWithXVals:xVals dataSet:set1];
     
@@ -136,14 +135,6 @@
     {
         _chartView.data.highlightEnabled = !_chartView.data.isHighlightEnabled;
         [_chartView setNeedsDisplay];
-    }
-    
-    if ([key isEqualToString:@"toggleStartZero"])
-    {
-        _chartView.leftAxis.startAtZeroEnabled = !_chartView.leftAxis.isStartAtZeroEnabled;
-        _chartView.rightAxis.startAtZeroEnabled = !_chartView.rightAxis.isStartAtZeroEnabled;
-        
-        [_chartView notifyDataSetChanged];
     }
     
     if ([key isEqualToString:@"animateX"])

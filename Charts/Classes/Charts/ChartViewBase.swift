@@ -78,8 +78,11 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     
     /// the number of x-values the chart displays
     internal var _deltaX = CGFloat(1.0)
-    
+        
+    /// the minimum x-value of the chart, regardless of zoom or translation.
     internal var _chartXMin = Double(0.0)
+    
+    /// the maximum x-value of the chart, regardless of zoom or translation.
     internal var _chartXMax = Double(0.0)
     
     /// the legend object containing all data associated with the legend
@@ -282,8 +285,8 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
 
         if _data === nil
         {
-            
             CGContextSaveGState(context)
+            defer { CGContextRestoreGState(context) }
             
             let hasText = noDataText.characters.count > 0
             let hasDescription = noDataTextDescription?.characters.count > 0

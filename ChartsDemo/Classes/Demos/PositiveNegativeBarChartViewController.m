@@ -35,7 +35,6 @@
                      @{@"key": @"animateX", @"label": @"Animate X"},
                      @{@"key": @"animateY", @"label": @"Animate Y"},
                      @{@"key": @"animateXY", @"label": @"Animate XY"},
-                     @{@"key": @"toggleStartZero", @"label": @"Toggle StartZero"},
                      @{@"key": @"saveToGallery", @"label": @"Save to Camera Roll"},
                      @{@"key": @"togglePinchZoom", @"label": @"Toggle PinchZoom"},
                      @{@"key": @"toggleAutoScaleMinMax", @"label": @"Toggle auto scale min/max"},
@@ -70,12 +69,14 @@
     
     ChartYAxis *leftAxis = _chartView.leftAxis;
     leftAxis.drawLabelsEnabled = NO;
-    leftAxis.startAtZeroEnabled = NO;
     leftAxis.spaceTop = 0.25f;
     leftAxis.spaceBottom = 0.25f;
     leftAxis.drawAxisLineEnabled = NO;
     leftAxis.drawGridLinesEnabled = NO;
-    
+    leftAxis.drawZeroLineEnabled = YES;
+    leftAxis.zeroLineColor = UIColor.grayColor;
+    leftAxis.zeroLineWidth = 0.7f;
+
     _chartView.rightAxis.enabled = NO;
     _chartView.legend.enabled = NO;
     
@@ -173,14 +174,6 @@
         _chartView.drawHighlightArrowEnabled = !_chartView.isDrawHighlightArrowEnabled;
         
         [_chartView setNeedsDisplay];
-    }
-    
-    if ([key isEqualToString:@"toggleStartZero"])
-    {
-        _chartView.leftAxis.startAtZeroEnabled = !_chartView.leftAxis.isStartAtZeroEnabled;
-        _chartView.rightAxis.startAtZeroEnabled = !_chartView.rightAxis.isStartAtZeroEnabled;
-        
-        [_chartView notifyDataSetChanged];
     }
     
     if ([key isEqualToString:@"animateX"])
