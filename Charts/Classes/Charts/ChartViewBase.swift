@@ -42,7 +42,7 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     internal var _defaultValueFormatter: NSNumberFormatter = ChartUtils.defaultValueFormatter()
     
     /// object that holds all data that was originally set for the chart, before it was modified or any filtering algorithms had been applied
-    internal var _data: ChartData!
+    internal var _data: ChartData?
     
     /// Flag that indicates if highlighting per tap (touch) is enabled
     private var _highlightPerTapEnabled = true
@@ -188,17 +188,14 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
         }
         set
         {
-            if newValue == nil
-            {
-                print("Charts: data argument is nil on setData()", terminator: "\n")
-                return
-            }
-            
             _offsetsCalculated = false
             _data = newValue
             
             // calculate how many digits are needed
-            calculateFormatter(min: _data.getYMin(), max: _data.getYMax())
+            if let data = _data
+            {
+                calculateFormatter(min: data.getYMin(), max: data.getYMax())
+            }
             
             notifyDataSetChanged()
         }
@@ -215,31 +212,22 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     /// Removes all DataSets (and thereby Entries) from the chart. Does not remove the x-values. Also refreshes the chart by calling setNeedsDisplay().
     public func clearValues()
     {
-        if (_data !== nil)
-        {
-            _data.clearValues()
-        }
+        _data?.clearValues()
         setNeedsDisplay()
     }
     
     /// - returns: true if the chart is empty (meaning it's data object is either null or contains no entries).
     public func isEmpty() -> Bool
     {
-        if (_data == nil)
+        guard let data = _data else { return true }
+
+        if (data.yValCount <= 0)
         {
             return true
         }
         else
         {
-            
-            if (_data.yValCount <= 0)
-            {
-                return true
-            }
-            else
-            {
-                return false
-            }
+            return false
         }
     }
     
@@ -268,15 +256,15 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
         // check if a custom formatter is set or not
         var reference = Double(0.0)
         
-        if (_data == nil || _data.xValCount < 2)
+        if let data = _data where data.xValCount >= 2
+        {
+            reference = fabs(max - min)
+        }
+        else
         {
             let absMin = fabs(min)
             let absMax = fabs(max)
             reference = absMin > absMax ? absMin : absMax
-        }
-        else
-        {
-            reference = fabs(max - min)
         }
         
         let digits = ChartUtils.decimals(reference)
@@ -450,7 +438,13 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     /// Provide -1 as the x-index to undo all highlighting.
     public func highlightValue(xIndex xIndex: Int, dataSetIndex: Int, callDelegate: Bool)
     {
-        if (xIndex < 0 || dataSetIndex < 0 || xIndex >= _data.xValCount || dataSetIndex >= _data.dataSetCount)
+        guard let data = _data else
+        {
+            print("Value not highlighted because data is nil")
+            return
+        }
+
+        if (xIndex < 0 || dataSetIndex < 0 || xIndex >= data.xValCount || dataSetIndex >= data.dataSetCount)
         {
             highlightValue(highlight: nil, callDelegate: callDelegate)
         }
@@ -473,7 +467,7 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
         else
         {
             // set the indices to highlight
-            entry = _data.getEntryForHighlight(h!)
+            entry = _data?.getEntryForHighlight(h!)
             if (entry === nil || entry!.xIndex != h?.xIndex)
             {
                 h = nil
@@ -524,7 +518,7 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
 
             if (xIndex <= Int(_deltaX) && xIndex <= Int(_deltaX * _animator.phaseX))
             {
-                let e = _data.getEntryForHighlight(highlight)
+                let e = _data?.getEntryForHighlight(highlight)
                 if (e === nil || e!.xIndex != highlight.xIndex)
                 {
                     continue
@@ -677,13 +671,13 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     /// - returns: the current y-max value across all DataSets
     public var chartYMax: Double
     {
-        return _data.yMax
+        return _data?.yMax ?? 0.0
     }
 
     /// - returns: the current y-min value across all DataSets
     public var chartYMin: Double
     {
-        return _data.yMin
+        return _data?.yMin ?? 0.0
     }
     
     public var chartXMax: Double
@@ -698,13 +692,13 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     
     public var xValCount: Int
     {
-        return _data.xValCount
+        return _data?.xValCount ?? 0
     }
     
     /// - returns: the total number of (y) values the chart holds (across all DataSets)
     public var valueCount: Int
     {
-        return _data.yValCount
+        return _data?.yValCount ?? 0
     }
     
     /// *Note: (Equivalent of getCenter() in MPAndroidChart, as center is already a standard in iOS that returns the center point relative to superview, and MPAndroidChart returns relative to self)*
@@ -747,14 +741,12 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     /// - returns: the x-value at the given index
     public func getXValue(index: Int) -> String!
     {
-        if (_data == nil || _data.xValCount <= index)
+        guard let data = _data where data.xValCount > index else
         {
             return nil
         }
-        else
-        {
-            return _data.xVals[index]
-        }
+
+        return data.xVals[index]
     }
     
     /// Get all Entry objects at the given index across all DataSets.
@@ -762,9 +754,11 @@ public class ChartViewBase: UIView, ChartDataProvider, ChartAnimatorDelegate
     {
         var vals = [ChartDataEntry]()
         
-        for (var i = 0, count = _data.dataSetCount; i < count; i++)
+        guard let data = _data else { return vals }
+
+        for (var i = 0, count = data.dataSetCount; i < count; i++)
         {
-            let set = _data.getDataSetByIndex(i)
+            let set = data.getDataSetByIndex(i)
             let e = set.entryForXIndex(xIndex)
             if (e !== nil)
             {
