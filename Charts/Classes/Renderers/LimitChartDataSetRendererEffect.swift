@@ -56,9 +56,9 @@ public class LimitChartDataSetRendererEffect: ChartDataSetRendererEffect {
         let baseColor = UIColor.whiteColor()
         let locations = [CGFloat(0.0), CGFloat(0.50), CGFloat(1.0)]
         let colors = [
-            baseColor.colorWithAlphaComponent(0.10).CGColor,
-            baseColor.colorWithAlphaComponent(0.85).CGColor,
-            baseColor.colorWithAlphaComponent(0.10).CGColor,
+            baseColor.colorWithAlphaComponent(0.0).CGColor,
+            baseColor.colorWithAlphaComponent(0.90).CGColor,
+            baseColor.colorWithAlphaComponent(0.0).CGColor,
             ]
         let gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), colors as CFArrayRef, locations);
         let point1 = CGPointMake(limitLineRect.origin.x, limitLineRect.midY);
