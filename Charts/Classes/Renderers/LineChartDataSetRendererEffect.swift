@@ -1,5 +1,5 @@
 //
-//  LineChartDataSetRendererEffect.swift
+//  ChartDataSetRendererEffect.swift
 //  Charts
 //
 //  Copyright 2015 Daniel Cohen Gindi & Philipp Jahoda
@@ -17,7 +17,7 @@ public protocol ChartRendering {
 }
 
 // TODO: update name of this class
-public class LineChartDataSetRendererEffect: ChartRendererEffectBase
+public class ChartDataSetRendererEffect: ChartRendererEffectBase
 {
     public var parentRenderer: ChartRendering!
     public var parentDataSet: IChartDataSet!

@@ -1,5 +1,5 @@
 //
-//  LimitLineChartDataSetRendererEffect.swift
+//  LimitChartDataSetRendererEffect.swift
 //  Charts
 //
 //  Created by Kip Nicol on 4/26/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class LimitLineChartDataSetRendererEffect: LineChartDataSetRendererEffect {
+public class LimitChartDataSetRendererEffect: ChartDataSetRendererEffect {
 
     var limit: Double
     var lineWidth: CGFloat

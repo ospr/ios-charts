@@ -44,7 +44,7 @@ public class LineChartRenderer: LineRadarChartRenderer, ChartRendering
                 
                 for effectRenderer in set.rendererEffects
                 {
-                    if let effectRenderer = effectRenderer as? LineChartDataSetRendererEffect
+                    if let effectRenderer = effectRenderer as? ChartDataSetRendererEffect
                     {
                         effectRenderer.updateForRendering(parentRenderer: self, parentDataSet: set)
                     }

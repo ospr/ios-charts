@@ -1,5 +1,5 @@
 //
-//  ShadowLineChartDataSetRendererEffect.swift
+//  ShadowChartDataSetRendererEffect.swift
 //  Charts
 //
 //  Copyright 2015 Daniel Cohen Gindi & Philipp Jahoda
@@ -11,7 +11,7 @@
 
 import Foundation
 
-public class ShadowLineChartDataSetRendererEffect: LineChartDataSetRendererEffect
+public class ShadowChartDataSetRendererEffect: ChartDataSetRendererEffect
 {
     var shadowColor: UIColor
     var shadowBlur: CGFloat
