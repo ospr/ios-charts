@@ -491,6 +491,7 @@
 				5B6A547F1AA5DF28000F57C2 /* ChartYAxisRendererHorizontalBarChart.swift */,
 				5B6A54811AA5DF34000F57C2 /* ChartYAxisRendererRadarChart.swift */,
 				7C7A74841C6CF21D0031917F /* LineChartDataSetRendererEffect.swift */,
+				5B8FE2B01B68FFF900910C9E /* LineScatterCandleRadarChartRenderer.swift */,
 				7C20B41B1CCFFD5D00247699 /* Renderer Effects */,
 			);
 			path = Renderers;
@@ -686,7 +687,6 @@
 			children = (
 				7C7A74811C6CEF350031917F /* ChartRendererEffectBase.swift */,
 				7C7A74971C6D867E0031917F /* ChartRendererEffect.swift */,
-				5B8FE2B01B68FFF900910C9E /* LineScatterCandleRadarChartRenderer.swift */,
 				7C7A749A1C6D88F20031917F /* GradientBackgroundChartRendererEffect.swift */,
 				7C7A74871C6CFE460031917F /* ImageChartDataSetRendererEffect.swift */,
 				7C7A748A1C6D00CF0031917F /* ShadowChartDataSetRendererEffect.swift */,
