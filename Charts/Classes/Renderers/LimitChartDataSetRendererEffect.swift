@@ -16,7 +16,7 @@ public class LimitChartDataSetRendererEffect: ChartDataSetRendererEffect {
     var labelAttributedString: NSAttributedString?
     var labelInsects = UIEdgeInsets(top: 0, left: 20, bottom: 2, right: 0)
     
-    init(limit: Double, lineWidth: CGFloat, labelAttributedString: NSAttributedString?) {
+    public init(limit: Double, lineWidth: CGFloat, labelAttributedString: NSAttributedString?) {
         self.limit = limit
         self.lineWidth = lineWidth
         self.labelAttributedString = labelAttributedString
