@@ -15,9 +15,10 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-public class LineChartRenderer: LineRadarChartRenderer
+public class LineChartRenderer: LineRadarChartRenderer, ChartRendering
 {
     public weak var dataProvider: LineChartDataProvider?
+    public var renderingDataProvider: BarLineScatterCandleBubbleChartDataProvider? { return dataProvider }
     
     public init(dataProvider: LineChartDataProvider?, animator: ChartAnimator?, viewPortHandler: ChartViewPortHandler)
     {

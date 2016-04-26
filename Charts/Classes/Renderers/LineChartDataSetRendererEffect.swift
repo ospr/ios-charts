@@ -11,12 +11,18 @@
 
 import Foundation
 
+public protocol ChartRendering {
+    var viewPortHandler: ChartViewPortHandler! { get }
+    var renderingDataProvider: BarLineScatterCandleBubbleChartDataProvider? { get }
+}
+
+// TODO: update name of this class
 public class LineChartDataSetRendererEffect: ChartRendererEffectBase
 {
-    public var parentRenderer: LineChartRenderer!
+    public var parentRenderer: ChartRendering!
     public var parentDataSet: IChartDataSet!
     
-    internal func updateForRendering(parentRenderer parentRenderer: LineChartRenderer, parentDataSet: IChartDataSet)
+    internal func updateForRendering(parentRenderer parentRenderer: ChartRendering, parentDataSet: IChartDataSet)
     {
         self.parentRenderer = parentRenderer
         self.parentDataSet = parentDataSet
@@ -24,7 +30,7 @@ public class LineChartDataSetRendererEffect: ChartRendererEffectBase
     
     public func transformValueToPixel(valuePoint: CGPoint) -> CGPoint
     {
-        let valueToPixelTransformer = parentRenderer.dataProvider!.getTransformer(parentDataSet.axisDependency)
+        let valueToPixelTransformer = parentRenderer.renderingDataProvider!.getTransformer(parentDataSet.axisDependency)
         return CGPointApplyAffineTransform(valuePoint, valueToPixelTransformer.valueToPixelMatrix)
     }
 }

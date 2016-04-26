@@ -15,9 +15,10 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-public class BarChartRenderer: ChartDataRendererBase
+public class BarChartRenderer: ChartDataRendererBase, ChartRendering
 {
     public weak var dataProvider: BarChartDataProvider?
+    public var renderingDataProvider: BarLineScatterCandleBubbleChartDataProvider? { return dataProvider }
     
     public init(dataProvider: BarChartDataProvider?, animator: ChartAnimator?, viewPortHandler: ChartViewPortHandler)
     {
@@ -40,8 +41,21 @@ public class BarChartRenderer: ChartDataRendererBase
                 {
                     fatalError("Datasets for BarChartRenderer must conform to IBarChartDataset")
                 }
+                for effectRenderer in set.rendererEffects
+                {
+                    if let effectRenderer = effectRenderer as? LineChartDataSetRendererEffect
+                    {
+                        effectRenderer.updateForRendering(parentRenderer: self, parentDataSet: set)
+                    }
+                    effectRenderer.willDrawData(context)
+                }
                 
                 drawDataSet(context: context, dataSet: set as! IBarChartDataSet, index: i)
+                
+                for effectRenderer in set.rendererEffects.reverse()
+                {
+                    effectRenderer.didDrawData(context)
+                }
             }
         }
     }
