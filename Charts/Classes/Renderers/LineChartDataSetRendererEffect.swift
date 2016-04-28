@@ -16,7 +16,6 @@ public protocol ChartRendering {
     var renderingDataProvider: BarLineScatterCandleBubbleChartDataProvider? { get }
 }
 
-// TODO: update name of this class
 public class ChartDataSetRendererEffect: ChartRendererEffectBase
 {
     public var parentRenderer: ChartRendering!
