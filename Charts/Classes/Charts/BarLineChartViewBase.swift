@@ -621,6 +621,11 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
     
     @objc private func tapGestureRecognized(recognizer: UITapGestureRecognizer)
     {
+        let locationPoint = recognizer.locationInView(self)
+        guard viewPortHandler.contentRect.contains(locationPoint) else {
+            return
+        }
+
         if _data === nil
         {
             return
@@ -647,6 +652,11 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
     
     @objc private func doubleTapGestureRecognized(recognizer: UITapGestureRecognizer)
     {
+        let locationPoint = recognizer.locationInView(self)
+        guard viewPortHandler.contentRect.contains(locationPoint) else {
+            return
+        }
+
         if _data === nil
         {
             return
@@ -676,6 +686,11 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
     #if !os(tvOS)
     @objc private func pinchGestureRecognized(recognizer: UIPinchGestureRecognizer)
     {
+        let locationPoint = recognizer.locationInView(self)
+        guard viewPortHandler.contentRect.contains(locationPoint) else {
+            return
+        }
+
         if (recognizer.state == UIGestureRecognizerState.Began)
         {
             stopDeceleration()
@@ -766,6 +781,11 @@ public class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChar
     
     @objc private func panGestureRecognized(recognizer: UIPanGestureRecognizer)
     {
+        let locationPoint = recognizer.locationInView(self)
+        guard viewPortHandler.contentRect.contains(locationPoint) else {
+            return
+        }
+        
         if (recognizer.state == UIGestureRecognizerState.Began && recognizer.numberOfTouches() > 0)
         {
             stopDeceleration()
